@@ -1,3 +1,4 @@
+// API key and base URL for OpenWeatherMap API
 const API_KEY = "your_api_key_here";
 const API_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -13,18 +14,26 @@ const elements = {
   date: document.querySelector("#date"),
   input: document.querySelector(".input"),
   button: document.getElementById("Btn"),
-  mainBox: document.getElementById("main-box") // Add this line
+  mainBox: document.getElementById("main-box")
 };
 
+// Fetch weather data for a given city
 async function fetchWeatherData(city) {
   try {
+    // Check if a city name is provided
     if (!city) {
       throw new Error('Please enter a valid city name.');
     }
+
+    // Fetch weather data from the API
     const response = await fetch(`${API_BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`);
+
+    // Check if the response is successful
     if (!response.ok) {
       throw new Error('City not found. Please check the spelling and try again.');
     }
+
+    // Return the response data as JSON
     return await response.json();
   } catch (error) {
     console.error('Error fetching weather data:', error);
@@ -32,12 +41,18 @@ async function fetchWeatherData(city) {
   }
 }
 
+// Fetch weather data for a given latitude and longitude
 async function fetchWeatherDataByCoords(lat, lon) {
   try {
+    // Fetch weather data from the API using coordinates
     const response = await fetch(`${API_BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+
+    // Check if the response is successful
     if (!response.ok) {
       throw new Error('Unable to fetch weather data for your location.');
     }
+
+    // Return the response data as JSON
     return await response.json();
   } catch (error) {
     console.error('Error fetching weather data:', error);
@@ -45,6 +60,7 @@ async function fetchWeatherDataByCoords(lat, lon) {
   }
 }
 
+// Set the background image based on the weather description
 function setBackgroundImage(weatherDescription) {
   const backgroundImages = {
     'clear sky': 'url("./image/clear-sky.avif")',
@@ -59,12 +75,14 @@ function setBackgroundImage(weatherDescription) {
   };
 
   const defaultBackground = 'url("./image/rain.avif")';
-  
+
+  // Set the background image based on the weather description
   elements.mainBox.style.backgroundImage = backgroundImages[weatherDescription.toLowerCase()] || defaultBackground;
   elements.mainBox.style.backgroundSize = 'cover';
   elements.mainBox.style.backgroundPosition = 'center';
 }
 
+// Update the UI with the fetched weather data
 function updateWeatherUI(data) {
   elements.city.textContent = `${data.name}, ${data.sys.country}`;
   elements.temperature.textContent = `${Math.round(data.main.temp)}°C`;
@@ -91,11 +109,16 @@ function updateWeatherUI(data) {
   setBackgroundImage(description);
 }
 
+// Handle weather search form submission
 async function handleWeatherSearch(e) {
   e.preventDefault();
   const city = elements.input.value.trim();
+
+  // Check if a city name is provided
   if (city) {
     const weatherData = await fetchWeatherData(city);
+
+    // Update the UI with the fetched weather data
     if (weatherData) {
       updateWeatherUI(weatherData);
       elements.input.value = '';
@@ -103,6 +126,7 @@ async function handleWeatherSearch(e) {
   }
 }
 
+// Get the user's current location
 function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if ("geolocation" in navigator) {
@@ -113,11 +137,14 @@ function getCurrentLocation() {
   });
 }
 
+// Show the weather for the user's current location
 async function showCurrentLocationWeather() {
   try {
     const position = await getCurrentLocation();
     const { latitude, longitude } = position.coords;
     const weatherData = await fetchWeatherDataByCoords(latitude, longitude);
+
+    // Update the UI with the fetched weather data
     if (weatherData) {
       updateWeatherUI(weatherData);
     }
