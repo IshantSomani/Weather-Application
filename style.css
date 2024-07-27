@@ -1,0 +1,199 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --text-color: white;
+  --input-text-color: #333; /* New variable for input text color */
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --background-color: rgba(0, 0, 0, 0.6);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://cdn.pixabay.com/photo/2022/08/16/10/24/lightning-7389933_1280.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: var(--background-color);
+}
+
+#main-box {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  background-color: var(--background-color);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: background-image 0.5s ease-in-out;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+#form-control {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9); /* Lighter background for better contrast */
+  border-radius: 50px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+#form-control:focus-within {
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+.input {
+  flex-grow: 1;
+  font-size: 1rem;
+  background-color: transparent;
+  color: var(--input-text-color); /* Changed to dark color for better visibility */
+  padding: 1rem 1.5rem;
+  border: none;
+}
+
+.input::placeholder {
+  color: rgba(0, 0, 0, 0.5); /* Darker placeholder text */
+}
+
+.input:focus {
+  outline: none;
+}
+
+#Btn {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#Btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.cardContainer {
+  width: 100%;
+  max-width: 350px;
+}
+
+.card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+#city {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+#weather, #date {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.temp {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 1rem 0;
+}
+
+.minmaxContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.min, .max, .humidity, .speed {
+  text-align: center;
+}
+
+.maxHeading, .minHeading, .humidityHeading, .speedHeading {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.25rem;
+}
+
+.maxTemp, .minTemp, .humidityTemp, .speedTemp {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  #main-box {
+    padding: 0 1rem;
+    height: 100dvh;
+    border-radius: 0%;
+    align-content: center;
+
+  }
+
+  #form-control {
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .temp {
+    font-size: 2.5rem;
+  }
+
+  .minmaxContainer {
+    flex-wrap: wrap; 
+    gap: 1rem;
+  }
+
+  .min, .max, .humidity, .speed {
+    flex-basis: calc(50% - 0.5rem); 
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .card {
+    padding: 1.5rem;
+    align-items: center;
+    align-content: center;
+  }
+
+  .temp {
+    font-size: 2.5rem;
+  }
+}
